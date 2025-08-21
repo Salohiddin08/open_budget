@@ -88,7 +88,9 @@ async def contact_handler(message: types.Message):
         await message.answer("❌ Iltimos, pastdagi tugma orqali telefon raqamingizni yuboring!")
 
 # Admin DB jo'natish
-@dp.message(Command("send_my_db"))
+from aiogram.filters import Command
+
+@dp.message(Command(commands=["send_my_db"]))
 async def send_database(message: types.Message):
     if message.from_user.id == ADMIN_ID:
         try:
@@ -98,9 +100,3 @@ async def send_database(message: types.Message):
     else:
         await message.answer("❌ Bu buyruq faqat admin uchun!")
 
-async def main():
-    logging.basicConfig(level=logging.INFO)
-    await dp.start_polling(bot)
-
-if __name__ == "__main__":
-    asyncio.run(main())
